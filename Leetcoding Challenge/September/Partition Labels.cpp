@@ -12,27 +12,23 @@ class Solution {
 public:
     vector<int> partitionLabels(string s) {
         vector<int>arr(26),res;
-        if(s.size()==0)
-            return res;
         for(int i=0;i<s.size();i++)
             arr[s[i]-'a']=i;
         int index=0,prev_index=-1;
-        while(1)
+        for(int i=index;i<s.size();i++)
         {
-            for(int i=index;i<arr[s[index]-'a'];i++)
+            if(arr[s[i]-'a']>index)
+                index=arr[s[i]-'a'];
+            if(i==arr[s[index]-'a'])
             {
-                if(arr[s[i]-'a']>index)
-                    index=arr[s[i]-'a'];
-            } 
-            index++;
-            if(prev_index==-1)
-            res.push_back(index);
-            else
-            res.push_back(index-prev_index);
-            prev_index=index;
-            if(index>=s.size())
-                break;
-        }
+                index++;
+                if(prev_index==-1)
+                res.push_back(index);
+                else
+                res.push_back(index-prev_index);
+                prev_index=index;
+            }
+        } 
         return res;
     }
 };
